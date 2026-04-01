@@ -30,16 +30,47 @@ public_users.get('/author/:author', function (req, res) {
   const keys = Object.keys(books);
 
   // Filter the books object to get any matches by author
-  let books_by_author = keys.filter((key) => books[key].author === author);
+  let filtered_keys = keys.filter((key) => books[key].author === author);
 
-  res.send(books_by_author);
+  // Create a new books object containing only the matches
+  let filtered_books = {};
+  filtered_keys.forEach((key) => {
+    let book = {
+        "author": books[key].author,
+        "title": books[key].title,
+        "reviews": books[key].reviews
+    }
+    filtered_books[key] = book;
+  })
+
+  res.send(filtered_books);
 });
 
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
-});
+public_users.get('/title/:title', function (req, res) {
+    const title = req.params.title;
+
+    // Get the keys of the books object
+    const keys = Object.keys(books);
+
+    // Filter the books object to get the keys of books that match by title
+    let filtered_keys = keys.filter((key) => {  
+        return books[key].title === title;
+    });
+  
+    // Create a new books object containing only the matches
+    let filtered_books = {};
+    filtered_keys.forEach((key) => {
+      let book = {
+          "author": books[key].author,
+          "title": books[key].title,
+          "reviews": books[key].reviews
+      }
+      filtered_books[key] = book;
+    })
+  
+    res.send(filtered_books);
+  });
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
