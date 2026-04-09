@@ -104,13 +104,12 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         // Replace the old reviews with the filtered reviews
         books[isbn].reviews = filtered_reviews;
 
-        res.json({message: "Your review has been deleted."});
+        res.send("Your review has been deleted.");
 
     } else {
-      return res.json({ message: "Please provide an ISBN." })
+      return res.send("Please provide an ISBN.");
     }
-
-  });
+});
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
