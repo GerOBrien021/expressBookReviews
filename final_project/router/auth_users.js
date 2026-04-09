@@ -68,11 +68,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
   if (isbn) {
     // Check if this user has already submitted a review
-
-
-
-    // This is a new review
-
+    if (books[isbn].reviews[username]) {
+        books[isbn].reviews[username] = review;
+        return res.send("You have already submitted a review for this book. Your review has been updated.");
+    } else {
+        // This is a new review
+        books[isbn].reviews[username] = review;
+        return res.send("Your review has been added. Thank you.");
+    }
   } else {
     return res.json({ message: "Please provide an ISBN." })
   }
