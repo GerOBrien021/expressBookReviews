@@ -82,6 +82,36 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
 
 });
 
+// Delete a book review
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+    const username = req.user;
+    const isbn = req.params.isbn;
+  
+    if (isbn) {
+        // Get all reviews for this book
+        const isbn_reviews = books[isbn].reviews;
+
+        // Filter out reviews by the currently-logged-in user
+        const reviews_keys = Object.keys(isbn_reviews);
+        let filtered_keys = reviews_keys.filter((key) => key !== username);
+
+        // Create a new reviews object
+        let filtered_reviews = {};
+        filtered_keys.forEach((key) => {
+            filtered_reviews[key] = isbn_reviews[key];
+        });
+
+        // Replace the old reviews with the filtered reviews
+        books[isbn].reviews = filtered_reviews;
+
+        res.json({message: "Your review has been deleted."});
+
+    } else {
+      return res.json({ message: "Please provide an ISBN." })
+    }
+
+  });
+
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
