@@ -51,7 +51,7 @@ public_users.get('/isbn/:isbn', function(req, res) {
   res.send(books[isbn]);
 });
 
-// Get the book list using async/await + Axios
+// Get book details based on an ISBN using async/await + Axios
 public_users.get('/isbn-async/:isbn', async function (req, res) {
     const isbn = req.params.isbn;
     const url = 'http://localhost:5000/isbn/' + isbn; 
@@ -66,7 +66,7 @@ public_users.get('/isbn-async/:isbn', async function (req, res) {
       });
     }
   });
-  
+
   
 // Get all books based on author
 public_users.get('/author/:author', function (req, res) {
@@ -91,6 +91,22 @@ public_users.get('/author/:author', function (req, res) {
 
   res.send(filtered_books);
 });
+
+// Get all books by an author using async/await + Axios
+public_users.get('/author-async/:author', async function (req, res) {
+    const author = req.params.author;
+    const url = 'http://localhost:5000/author/' + author; 
+
+    try {
+      const response = await axios.get(url);
+      return res.status(200).json(response.data);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Error fetching book list",
+        error: error.message 
+      });
+    }
+  });
 
 // Get all books based on title
 public_users.get('/title/:title', function (req, res) {
@@ -117,6 +133,23 @@ public_users.get('/title/:title', function (req, res) {
   
     res.send(filtered_books);
   });
+
+// Get book details based on an title using async/await + Axios
+public_users.get('/title-async/:title', async function (req, res) {
+    const title = req.params.title;
+    const url = 'http://localhost:5000/title/' + title; 
+
+    try {
+      const response = await axios.get(url);
+      return res.status(200).json(response.data);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Error fetching book list",
+        error: error.message 
+      });
+    }
+  });
+
 
 // Get book review
 public_users.get('/review/:isbn',function (req, res) {
