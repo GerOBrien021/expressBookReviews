@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
@@ -30,12 +31,42 @@ public_users.get('/', function(req, res) {
   res.send(JSON.stringify(books, null, 4));
 });
 
+// Get the book list using async/await + Axios
+public_users.get('/books-async', async function (req, res) {
+    try {
+      const response = await axios.get('http://localhost:5000/');
+      return res.status(200).json(response.data);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Error fetching book list",
+        error: error.message 
+      });
+    }
+  });
+
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn', function(req, res) {
   const isbn = req.params.isbn;
 
   res.send(books[isbn]);
 });
+
+// Get the book list using async/await + Axios
+public_users.get('/isbn-async/:isbn', async function (req, res) {
+    const isbn = req.params.isbn;
+    const url = 'http://localhost:5000/isbn/' + isbn; 
+
+    try {
+      const response = await axios.get(url);
+      return res.status(200).json(response.data);
+    } catch (error) {
+      return res.status(500).json({ 
+        message: "Error fetching book list",
+        error: error.message 
+      });
+    }
+  });
+  
   
 // Get all books based on author
 public_users.get('/author/:author', function (req, res) {
