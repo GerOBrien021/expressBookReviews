@@ -54,7 +54,7 @@ regd_users.post("/login", (req, res) => {
         req.session.authorization = {
             accessToken, username
         }
-        console.log("auth_users:57 ", req.session );
+        
         return res.status(200).json({message: "User successfully logged in"});
     } else {
         return res.status(208).json({ message: "Invalid Login. Check username and password" });
@@ -71,11 +71,11 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     // Check if this user has already submitted a review
     if (books[isbn].reviews[username]) {
         books[isbn].reviews[username] = review;
-        return res.send("You have already submitted a review for this book. Your review has been updated.");
+        return res.send("Your review has been updated.");
     } else {
         // This is a new review
         books[isbn].reviews[username] = review;
-        return res.send("Your review has been added. Thank you.");
+        return res.send({message: "Your review has been added. Thank you."});
     }
   } else {
     return res.json({ message: "Please provide an ISBN." })

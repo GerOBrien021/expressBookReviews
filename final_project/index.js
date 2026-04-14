@@ -27,7 +27,6 @@ app.use("/customer/auth/*", function auth(req,res,next){
         
         // Return error if no access token is found in the session
     } else {
-        console.log("index:30 req.session", req.session);
         return res.status(403).json({ message: "User not logged in" });
     }
 });
