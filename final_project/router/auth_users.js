@@ -54,6 +54,7 @@ regd_users.post("/login", (req, res) => {
         req.session.authorization = {
             accessToken, username
         }
+        console.log("auth_users:57 ", req.session );
         return res.status(200).json({message: "User successfully logged in"});
     } else {
         return res.status(208).json({ message: "Invalid Login. Check username and password" });
@@ -104,7 +105,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         // Replace the old reviews with the filtered reviews
         books[isbn].reviews = filtered_reviews;
 
-        res.send("Your review has been deleted.");
+        res.send("Your review has been deleted");
 
     } else {
       return res.send("Please provide an ISBN.");

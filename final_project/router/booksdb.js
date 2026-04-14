@@ -3,7 +3,7 @@ let books = {
       2: {"author": "Hans Christian Andersen","title": "Fairy Tales", "reviews": {} },
       3: {"author": "Dante Alighieri","title": "The Divine Comedy", "reviews": {} },
       4: {"author": "Unknown","title": "The Epic Of Gilgamesh", "reviews": {} },
-      5: {"author": "Unknown","title": "The Book of Job", "reviews": {"gerard": "Good", "vivian": "Great!", "maedbh": "Amazing!", "sean": "Super"} },
+      5: {"author": "Unknown","title": "The Book of Job", "reviews": {} },
       6: {"author": "Unknown","title": "One Thousand and One Nights", "reviews": {} },
       7: {"author": "Unknown","title": "Nj\u00e1l's Saga", "reviews": {} },
       8: {"author": "Jane Austen","title": "Pride and Prejudice", "reviews": {} },
